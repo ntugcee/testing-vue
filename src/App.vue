@@ -1,23 +1,23 @@
 <template>
-  <input v-model="car" placeholder="Add a new car" /> <br /><br />
-  <input type="submit" @click="storeCar" value="Store" />
-  <button @click="getCars">Get List</button>
-  <button type="button" @click="clearLocal">Clear local</button>
-
-  <ul class="list">
-    <li v-for="(car, i) in cars" :key="i">
-      {{ car }}
-    </li>
-  </ul>
+  <!-- <to-add :baslik="baslik"/> -->
+  <to-add @change="bas" />
+  
 </template>
 
 <script>
+import ToAdd from './components/to-add.vue';
+
 export default {
-  name: "App",
+  name: 'App',
+  components: {
+    ToAdd
+  },
+
   data() {
     return {
       cars: [],
       car: "",
+      // baslik:"merhaba"
     };
   },
   created() {
@@ -39,22 +39,18 @@ export default {
     clearLocal() {
       localStorage.clear();
     },
+    bas(e) {
+      console.log('haci abi ',e)
+    }
   },
 
   getCars() {
     this.cars = JSON.parse(localStorage.getItem("cars"));
   },
-};
+ };
 </script>
 
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
